@@ -28,6 +28,7 @@ public class Employee {
 
     private String name;
 
+
     /*
      * Getter und Setter Methoden
      */
@@ -51,8 +52,8 @@ public class Employee {
         return daysAvailability;
     }
 
-    public void setDaysAvailability(Set<DayOfWeek> daysAvailability) {
-        this.daysAvailability = daysAvailability;
+    public void setDaysAvailability(Set<DayOfWeek> daysAvailable) {
+        this.daysAvailability = daysAvailable;
     }
 
     public String getName() {

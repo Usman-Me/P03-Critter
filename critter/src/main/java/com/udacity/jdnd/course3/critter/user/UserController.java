@@ -82,6 +82,7 @@ public class UserController {
 
     @PostMapping("/employee")
     public EmployeeDTO saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
+      //  Employee employee = ConvertService.convertDTOToEmployeeEntity(employeeDTO);
         Employee employee = ConvertService.convertDTOToEmployeeEntity(employeeDTO);
         employee = employeeService.save(employee);
         employeeDTO.setId(employee.getId());
@@ -104,8 +105,8 @@ public class UserController {
     }
 
     @GetMapping("/employee/availability")
-    public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
-        List<Employee> employees = employeeService.findEmployeesBySkillAndDate(employeeDTO.getSkills(), employeeDTO.getDate());
+    public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) { // .getDayOfWeek() eingefügt
+        List<Employee> employees = employeeService.findEmployeesBySkillAndDate(employeeDTO.getSkills(), employeeDTO.getDate().getDayOfWeek());
         List<EmployeeDTO> employeeDTOs = employees.stream().map(e-> ConvertService.convertEntityToEmployeeDTO(e)).collect(Collectors.toList());
         return employeeDTOs;
         // noch einzubinden throw new UnsupportedOperationException();
