@@ -5,6 +5,8 @@ import com.udacity.jdnd.course3.critter.entity.Customer;
 import com.udacity.jdnd.course3.critter.entity.Pet;
 import com.udacity.jdnd.course3.critter.repository.CustomerRepository;
 import com.udacity.jdnd.course3.critter.repository.PetRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import java.util.List;
 @Service
 @Transactional
 public class PetService {
+    private static final Logger LOGGER = LogManager.getLogger(PetService.class);
 
     @Autowired
     PetRepository petRepository;
@@ -24,10 +27,12 @@ public class PetService {
 
     public Pet save(Pet pet){
         Pet returnedPet= petRepository.save(pet);
-
         //this.addPetToCustomer(pet,pet.getCustomer());
         Customer customer = returnedPet.getCustomer();
+
+        List<Pet> customerPets = customer.getPets();
         customer.addPet(returnedPet);
+        customer.setPets(customerPets);
         customerRepository.save(customer);
 
         return returnedPet;

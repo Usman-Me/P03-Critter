@@ -23,6 +23,7 @@ public class ConvertService {
     public static PetDTO convertEntityToPetDTO(Pet pet){
         PetDTO petDTO = new PetDTO();
         BeanUtils.copyProperties(pet, petDTO);
+        petDTO.setOwnerId(pet.getCustomer().getId());  // Neu eingefügt
         return petDTO;
     }
 

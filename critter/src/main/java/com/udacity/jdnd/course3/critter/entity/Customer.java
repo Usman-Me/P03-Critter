@@ -1,6 +1,8 @@
 package com.udacity.jdnd.course3.critter.entity;
 
 
+import org.hibernate.annotations.Nationalized;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,12 +10,14 @@ import java.util.List;
 @Entity
 public class Customer {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     /*
     * Deklaration Variablen
      */
+    @Nationalized
+    @Column(length = 64)
     private String name;
     private String phoneNumber;
     private String notes;

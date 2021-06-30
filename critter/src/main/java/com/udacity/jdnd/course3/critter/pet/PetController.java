@@ -24,6 +24,11 @@ public class PetController {
     @Autowired
     CustomerService customerService;
 
+    public PetController(PetService petService, CustomerService customerService){
+        this.petService=petService;
+        this.customerService=customerService;
+    }
+
 
     /*
     * Ab hier weiter
@@ -31,21 +36,23 @@ public class PetController {
 
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
-        Pet pet = ConvertService.convertDTOToPetEntity(petDTO);
 
-        // from ownerId set Customer in pet
-        long customerId = petDTO.getOwnerId();
-        Customer customer = customerService.getCustomerById(customerId);
+        Customer customer = null;
+        if ((Long) petDTO.getOwnerId() != null) {
+            customer = customerService.getCustomerById(petDTO.getOwnerId());
+        }
+        Pet pet = ConvertService.convertDTOToPetEntity(petDTO);
         pet.setCustomer(customer);
 
-        //make sure in customer petIds are updated on save pet
+
         pet = petService.save(pet);
         petDTO.setId(pet.getId());
+
         return petDTO;
-
-
-        //throw new UnsupportedOperationException();
+        //return ConvertService.convertEntityToPetDTO(savedPet);
     }
+
+
 
     @GetMapping("/{petId}")
     public PetDTO getPet(@PathVariable long petId) {
