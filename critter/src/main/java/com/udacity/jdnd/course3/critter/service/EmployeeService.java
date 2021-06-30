@@ -17,6 +17,7 @@ import java.util.Set;
 
 
 @Service
+@Transactional
 public class EmployeeService {
 
     @Autowired

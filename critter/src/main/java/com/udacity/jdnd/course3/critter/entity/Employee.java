@@ -52,8 +52,8 @@ public class Employee {
         return daysAvailability;
     }
 
-    public void setDaysAvailability(Set<DayOfWeek> daysAvailable) {
-        this.daysAvailability = daysAvailable;
+    public void setDaysAvailability(Set<DayOfWeek> daysAvailability) {
+        this.daysAvailability = daysAvailability;
     }
 
     public String getName() {
