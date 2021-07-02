@@ -36,7 +36,6 @@ public class PetController {
 
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
-
         Customer customer = null;
         if ((Long) petDTO.getOwnerId() != null) {
             customer = customerService.getCustomerById(petDTO.getOwnerId());
@@ -44,12 +43,10 @@ public class PetController {
         Pet pet = ConvertService.convertDTOToPetEntity(petDTO);
         pet.setCustomer(customer);
 
-
         pet = petService.save(pet);
         petDTO.setId(pet.getId());
 
         return petDTO;
-        //return ConvertService.convertEntityToPetDTO(savedPet);
     }
 
 
